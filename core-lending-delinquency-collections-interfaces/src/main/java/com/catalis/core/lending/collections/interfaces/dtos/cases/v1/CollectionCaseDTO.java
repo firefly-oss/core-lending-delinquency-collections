@@ -1,8 +1,8 @@
 package com.catalis.core.lending.collections.interfaces.dtos.cases.v1;
 
-import com.catalis.common.core.filters.FilterableId;
 import com.catalis.core.lending.collections.interfaces.enums.status.v1.CollectionStatusEnum;
 import com.catalis.core.lending.collections.interfaces.enums.cases.v1.DelinquencyStageEnum;
+import com.catalis.core.utils.annotations.FilterableId;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
