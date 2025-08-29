@@ -1,0 +1,72 @@
+package com.firefly.core.lending.collections.web.controllers.status.v1;
+
+import com.firefly.common.core.filters.FilterRequest;
+import com.firefly.common.core.queries.PaginationResponse;
+import com.firefly.core.lending.collections.core.services.status.v1.CollectionStatusHistoryService;
+import com.firefly.core.lending.collections.interfaces.dtos.status.v1.CollectionStatusHistoryDTO;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+import reactor.core.publisher.Mono;
+
+@RestController
+@RequestMapping("/api/v1/collection-cases/{collectionCaseId}/status-history")
+@Tag(name = "CollectionStatusHistory", description = "Operations on Collection Status History")
+@RequiredArgsConstructor
+public class CollectionStatusHistoryController {
+
+    private final CollectionStatusHistoryService service;
+
+    @GetMapping
+    @Operation(summary = "List or search status history records for a collection case")
+    public Mono<ResponseEntity<PaginationResponse<CollectionStatusHistoryDTO>>> findAll(
+            @PathVariable Long collectionCaseId,
+            @ModelAttribute FilterRequest<CollectionStatusHistoryDTO> filterRequest) {
+
+        return service.findAll(collectionCaseId, filterRequest)
+                .map(ResponseEntity::ok);
+    }
+
+    @PostMapping
+    @Operation(summary = "Create a new status history entry for a case")
+    public Mono<ResponseEntity<CollectionStatusHistoryDTO>> create(
+            @PathVariable Long collectionCaseId,
+            @RequestBody CollectionStatusHistoryDTO dto) {
+
+        return service.create(collectionCaseId, dto)
+                .map(ResponseEntity::ok);
+    }
+
+    @GetMapping("/{statusHistoryId}")
+    @Operation(summary = "Get a status history record by ID")
+    public Mono<ResponseEntity<CollectionStatusHistoryDTO>> getById(
+            @PathVariable Long collectionCaseId,
+            @PathVariable Long statusHistoryId) {
+
+        return service.getById(collectionCaseId, statusHistoryId)
+                .map(ResponseEntity::ok);
+    }
+
+    @PutMapping("/{statusHistoryId}")
+    @Operation(summary = "Update a status history record")
+    public Mono<ResponseEntity<CollectionStatusHistoryDTO>> update(
+            @PathVariable Long collectionCaseId,
+            @PathVariable Long statusHistoryId,
+            @RequestBody CollectionStatusHistoryDTO dto) {
+
+        return service.update(collectionCaseId, statusHistoryId, dto)
+                .map(ResponseEntity::ok);
+    }
+
+    @DeleteMapping("/{statusHistoryId}")
+    @Operation(summary = "Delete a status history record")
+    public Mono<ResponseEntity<Void>> delete(
+            @PathVariable Long collectionCaseId,
+            @PathVariable Long statusHistoryId) {
+
+        return service.delete(collectionCaseId, statusHistoryId)
+                .thenReturn(ResponseEntity.noContent().build());
+    }
+}
