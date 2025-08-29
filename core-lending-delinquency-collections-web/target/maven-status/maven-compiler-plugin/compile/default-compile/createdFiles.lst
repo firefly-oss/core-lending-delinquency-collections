@@ -1,6 +1,0 @@
-com/firefly/core/lending/collections/web/DelinquencyCollectionsApplication.class
-com/firefly/core/lending/collections/web/controllers/cases/v1/CollectionCaseController.class
-com/firefly/core/lending/collections/web/controllers/status/v1/CollectionStatusHistoryController.class
-com/firefly/core/lending/collections/web/controllers/escalation/v1/CollectionEscalationController.class
-com/firefly/core/lending/collections/web/controllers/promise/v1/CollectionPromiseController.class
-com/firefly/core/lending/collections/web/controllers/action/v1/CollectionActionController.class
