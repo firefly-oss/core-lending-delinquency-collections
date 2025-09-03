@@ -1,0 +1,1856 @@
+openapi: 3.0.1
+info:
+  title: core-lending-delinquency-collections
+  description: Loan Delinquency & Collections Core Application
+  contact:
+    name: Firefly Software Solutions Inc
+    email: dev@getfirefly.io
+  version: 1.0.0
+servers:
+  - url: http://core.catalis.vc/loan-collections
+    description: Development Environment
+  - url: /
+    description: Local Development Environment
+tags:
+  - name: CollectionPromise
+    description: Operations on Payment Promises in Collection Cases
+  - name: CollectionAction
+    description: Operations on Collection Actions
+  - name: CollectionEscalation
+    description: Operations on Escalations in Collection Cases
+  - name: CollectionCase
+    description: Operations on Collection Cases
+  - name: CollectionStatusHistory
+    description: Operations on Collection Status History
+paths:
+  /api/v1/collection-cases/{collectionCaseId}:
+    get:
+      tags:
+        - CollectionCase
+      summary: Get a collection case by ID
+      operationId: getById
+      parameters:
+        - name: collectionCaseId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/CollectionCaseDTO'
+    put:
+      tags:
+        - CollectionCase
+      summary: Update a collection case
+      operationId: update
+      parameters:
+        - name: collectionCaseId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - name: X-Idempotency-Key
+          in: header
+          description: Unique key for idempotent requests. If provided, ensures that identical requests with the same key will only be processed once.
+          required: false
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CollectionCaseDTO'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/CollectionCaseDTO'
+    delete:
+      tags:
+        - CollectionCase
+      summary: Delete a collection case
+      operationId: delete
+      parameters:
+        - name: collectionCaseId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: OK
+  /api/v1/collection-cases/{collectionCaseId}/status-history/{statusHistoryId}:
+    get:
+      tags:
+        - CollectionStatusHistory
+      summary: Get a status history record by ID
+      operationId: getById_1
+      parameters:
+        - name: collectionCaseId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - name: statusHistoryId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/CollectionStatusHistoryDTO'
+    put:
+      tags:
+        - CollectionStatusHistory
+      summary: Update a status history record
+      operationId: update_1
+      parameters:
+        - name: collectionCaseId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - name: statusHistoryId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - name: X-Idempotency-Key
+          in: header
+          description: Unique key for idempotent requests. If provided, ensures that identical requests with the same key will only be processed once.
+          required: false
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CollectionStatusHistoryDTO'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/CollectionStatusHistoryDTO'
+    delete:
+      tags:
+        - CollectionStatusHistory
+      summary: Delete a status history record
+      operationId: delete_1
+      parameters:
+        - name: collectionCaseId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - name: statusHistoryId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: OK
+  /api/v1/collection-cases/{collectionCaseId}/promises/{promiseId}:
+    get:
+      tags:
+        - CollectionPromise
+      summary: Get a payment promise by ID
+      operationId: getById_2
+      parameters:
+        - name: collectionCaseId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - name: promiseId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/CollectionPromiseDTO'
+    put:
+      tags:
+        - CollectionPromise
+      summary: Update a payment promise
+      operationId: update_2
+      parameters:
+        - name: collectionCaseId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - name: promiseId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - name: X-Idempotency-Key
+          in: header
+          description: Unique key for idempotent requests. If provided, ensures that identical requests with the same key will only be processed once.
+          required: false
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CollectionPromiseDTO'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/CollectionPromiseDTO'
+    delete:
+      tags:
+        - CollectionPromise
+      summary: Delete a payment promise record
+      operationId: delete_2
+      parameters:
+        - name: collectionCaseId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - name: promiseId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: OK
+  /api/v1/collection-cases/{collectionCaseId}/escalations/{escalationId}:
+    get:
+      tags:
+        - CollectionEscalation
+      summary: Get an escalation record by ID
+      operationId: getById_3
+      parameters:
+        - name: collectionCaseId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - name: escalationId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/CollectionEscalationDTO'
+    put:
+      tags:
+        - CollectionEscalation
+      summary: Update an escalation record
+      operationId: update_3
+      parameters:
+        - name: collectionCaseId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - name: escalationId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - name: X-Idempotency-Key
+          in: header
+          description: Unique key for idempotent requests. If provided, ensures that identical requests with the same key will only be processed once.
+          required: false
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CollectionEscalationDTO'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/CollectionEscalationDTO'
+    delete:
+      tags:
+        - CollectionEscalation
+      summary: Delete an escalation record
+      operationId: delete_3
+      parameters:
+        - name: collectionCaseId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - name: escalationId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: OK
+  /api/v1/collection-cases/{collectionCaseId}/actions/{actionId}:
+    get:
+      tags:
+        - CollectionAction
+      summary: Get a collection action by ID
+      operationId: getById_4
+      parameters:
+        - name: collectionCaseId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - name: actionId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/CollectionActionDTO'
+    put:
+      tags:
+        - CollectionAction
+      summary: Update a collection action
+      operationId: update_4
+      parameters:
+        - name: collectionCaseId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - name: actionId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - name: X-Idempotency-Key
+          in: header
+          description: Unique key for idempotent requests. If provided, ensures that identical requests with the same key will only be processed once.
+          required: false
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CollectionActionDTO'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/CollectionActionDTO'
+    delete:
+      tags:
+        - CollectionAction
+      summary: Delete a collection action
+      operationId: delete_4
+      parameters:
+        - name: collectionCaseId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - name: actionId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: OK
+  /api/v1/collection-cases:
+    get:
+      tags:
+        - CollectionCase
+      summary: List or search collection cases
+      operationId: findAll
+      parameters:
+        - name: pagination.pageNumber
+          in: query
+          description: Page number (0-based)
+          required: false
+          schema:
+            type: integer
+            format: int32
+            default: 0
+        - name: pagination.pageSize
+          in: query
+          description: Number of items per page
+          required: false
+          schema:
+            type: integer
+            format: int32
+            default: 10
+        - name: pagination.sortBy
+          in: query
+          description: Field to sort by
+          required: false
+          schema:
+            type: string
+        - name: pagination.sortDirection
+          in: query
+          description: Sort direction (ASC or DESC)
+          required: false
+          schema:
+            type: string
+            default: DESC
+        - name: options.caseInsensitiveStrings
+          in: query
+          description: Enable case-insensitive string filtering
+          required: false
+          schema:
+            type: boolean
+            default: false
+        - name: options.includeInheritedFields
+          in: query
+          description: Include fields from parent classes
+          required: false
+          schema:
+            type: boolean
+            default: false
+        - name: filters.loanServicingCaseId
+          in: query
+          description: Exact filter for loan servicing case id
+          required: false
+          schema:
+            type: string
+        - name: filters.collectionStatus
+          in: query
+          description: Exact filter for collection status
+          required: false
+          schema:
+            type: string
+            enum:
+              - OPEN
+              - CLOSED
+              - LEGAL
+              - RESTRUCTURED
+              - SETTLED
+        - name: filters.daysPastDue
+          in: query
+          description: Exact filter for days past due
+          required: false
+          schema:
+            type: integer
+            format: int32
+        - name: rangeFilters.ranges[daysPastDue].from
+          in: query
+          description: Filter days past due from value
+          required: false
+          schema:
+            type: integer
+            format: int32
+        - name: rangeFilters.ranges[daysPastDue].to
+          in: query
+          description: Filter days past due to value
+          required: false
+          schema:
+            type: integer
+            format: int32
+        - name: filters.delinquencyStage
+          in: query
+          description: Exact filter for delinquency stage
+          required: false
+          schema:
+            type: string
+            enum:
+              - EARLY
+              - MID
+              - LATE
+              - LEGAL
+              - WRITE_OFF
+        - name: filters.totalDue
+          in: query
+          description: Exact filter for total due
+          required: false
+          schema:
+            type: string
+        - name: rangeFilters.ranges[totalDue].from
+          in: query
+          description: Filter total due from value
+          required: false
+          schema:
+            type: string
+        - name: rangeFilters.ranges[totalDue].to
+          in: query
+          description: Filter total due to value
+          required: false
+          schema:
+            type: string
+        - name: filters.totalRecovered
+          in: query
+          description: Exact filter for total recovered
+          required: false
+          schema:
+            type: string
+        - name: rangeFilters.ranges[totalRecovered].from
+          in: query
+          description: Filter total recovered from value
+          required: false
+          schema:
+            type: string
+        - name: rangeFilters.ranges[totalRecovered].to
+          in: query
+          description: Filter total recovered to value
+          required: false
+          schema:
+            type: string
+        - name: filters.caseOpenedAt
+          in: query
+          description: Exact filter for case opened at
+          required: false
+          schema:
+            type: string
+            format: date-time
+        - name: rangeFilters.ranges[caseOpenedAt].from
+          in: query
+          description: Filter case opened at from value
+          required: false
+          schema:
+            type: string
+            format: date-time
+        - name: rangeFilters.ranges[caseOpenedAt].to
+          in: query
+          description: Filter case opened at to value
+          required: false
+          schema:
+            type: string
+            format: date-time
+        - name: filters.caseClosedAt
+          in: query
+          description: Exact filter for case closed at
+          required: false
+          schema:
+            type: string
+            format: date-time
+        - name: rangeFilters.ranges[caseClosedAt].from
+          in: query
+          description: Filter case closed at from value
+          required: false
+          schema:
+            type: string
+            format: date-time
+        - name: rangeFilters.ranges[caseClosedAt].to
+          in: query
+          description: Filter case closed at to value
+          required: false
+          schema:
+            type: string
+            format: date-time
+        - name: filters.remarks
+          in: query
+          description: Exact filter for remarks
+          required: false
+          schema:
+            type: string
+        - name: filters.createdAt
+          in: query
+          description: Exact filter for created at
+          required: false
+          schema:
+            type: string
+            format: date-time
+        - name: rangeFilters.ranges[createdAt].from
+          in: query
+          description: Filter created at from value
+          required: false
+          schema:
+            type: string
+            format: date-time
+        - name: rangeFilters.ranges[createdAt].to
+          in: query
+          description: Filter created at to value
+          required: false
+          schema:
+            type: string
+            format: date-time
+        - name: filters.updatedAt
+          in: query
+          description: Exact filter for updated at
+          required: false
+          schema:
+            type: string
+            format: date-time
+        - name: rangeFilters.ranges[updatedAt].from
+          in: query
+          description: Filter updated at from value
+          required: false
+          schema:
+            type: string
+            format: date-time
+        - name: rangeFilters.ranges[updatedAt].to
+          in: query
+          description: Filter updated at to value
+          required: false
+          schema:
+            type: string
+            format: date-time
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/PaginationResponseCollectionCaseDTO'
+    post:
+      tags:
+        - CollectionCase
+      summary: Create a new collection case
+      operationId: create
+      parameters:
+        - name: X-Idempotency-Key
+          in: header
+          description: Unique key for idempotent requests. If provided, ensures that identical requests with the same key will only be processed once.
+          required: false
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CollectionCaseDTO'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/CollectionCaseDTO'
+  /api/v1/collection-cases/{collectionCaseId}/status-history:
+    get:
+      tags:
+        - CollectionStatusHistory
+      summary: List or search status history records for a collection case
+      operationId: findAll_1
+      parameters:
+        - name: collectionCaseId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - name: pagination.pageNumber
+          in: query
+          description: Page number (0-based)
+          required: false
+          schema:
+            type: integer
+            format: int32
+            default: 0
+        - name: pagination.pageSize
+          in: query
+          description: Number of items per page
+          required: false
+          schema:
+            type: integer
+            format: int32
+            default: 10
+        - name: pagination.sortBy
+          in: query
+          description: Field to sort by
+          required: false
+          schema:
+            type: string
+        - name: pagination.sortDirection
+          in: query
+          description: Sort direction (ASC or DESC)
+          required: false
+          schema:
+            type: string
+            default: DESC
+        - name: options.caseInsensitiveStrings
+          in: query
+          description: Enable case-insensitive string filtering
+          required: false
+          schema:
+            type: boolean
+            default: false
+        - name: options.includeInheritedFields
+          in: query
+          description: Include fields from parent classes
+          required: false
+          schema:
+            type: boolean
+            default: false
+        - name: filters.collectionCaseId
+          in: query
+          description: Exact filter for collection case id
+          required: false
+          schema:
+            type: string
+        - name: filters.oldStatus
+          in: query
+          description: Exact filter for old status
+          required: false
+          schema:
+            type: string
+            enum:
+              - OPEN
+              - CLOSED
+              - LEGAL
+              - RESTRUCTURED
+              - SETTLED
+        - name: filters.newStatus
+          in: query
+          description: Exact filter for new status
+          required: false
+          schema:
+            type: string
+            enum:
+              - OPEN
+              - CLOSED
+              - LEGAL
+              - RESTRUCTURED
+              - SETTLED
+        - name: filters.reasonCode
+          in: query
+          description: Exact filter for reason code
+          required: false
+          schema:
+            type: string
+            enum:
+              - PROMISE_BROKEN
+              - LEGAL_REFERRAL
+              - PAYMENT_RECEIVED
+              - NO_CONTACT
+        - name: filters.changedAt
+          in: query
+          description: Exact filter for changed at
+          required: false
+          schema:
+            type: string
+            format: date-time
+        - name: rangeFilters.ranges[changedAt].from
+          in: query
+          description: Filter changed at from value
+          required: false
+          schema:
+            type: string
+            format: date-time
+        - name: rangeFilters.ranges[changedAt].to
+          in: query
+          description: Filter changed at to value
+          required: false
+          schema:
+            type: string
+            format: date-time
+        - name: filters.changedBy
+          in: query
+          description: Exact filter for changed by
+          required: false
+          schema:
+            type: string
+        - name: filters.createdAt
+          in: query
+          description: Exact filter for created at
+          required: false
+          schema:
+            type: string
+            format: date-time
+        - name: rangeFilters.ranges[createdAt].from
+          in: query
+          description: Filter created at from value
+          required: false
+          schema:
+            type: string
+            format: date-time
+        - name: rangeFilters.ranges[createdAt].to
+          in: query
+          description: Filter created at to value
+          required: false
+          schema:
+            type: string
+            format: date-time
+        - name: filters.updatedAt
+          in: query
+          description: Exact filter for updated at
+          required: false
+          schema:
+            type: string
+            format: date-time
+        - name: rangeFilters.ranges[updatedAt].from
+          in: query
+          description: Filter updated at from value
+          required: false
+          schema:
+            type: string
+            format: date-time
+        - name: rangeFilters.ranges[updatedAt].to
+          in: query
+          description: Filter updated at to value
+          required: false
+          schema:
+            type: string
+            format: date-time
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/PaginationResponseCollectionStatusHistoryDTO'
+    post:
+      tags:
+        - CollectionStatusHistory
+      summary: Create a new status history entry for a case
+      operationId: create_1
+      parameters:
+        - name: collectionCaseId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - name: X-Idempotency-Key
+          in: header
+          description: Unique key for idempotent requests. If provided, ensures that identical requests with the same key will only be processed once.
+          required: false
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CollectionStatusHistoryDTO'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/CollectionStatusHistoryDTO'
+  /api/v1/collection-cases/{collectionCaseId}/promises:
+    get:
+      tags:
+        - CollectionPromise
+      summary: List or search promises for a collection case
+      operationId: findAll_2
+      parameters:
+        - name: collectionCaseId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - name: pagination.pageNumber
+          in: query
+          description: Page number (0-based)
+          required: false
+          schema:
+            type: integer
+            format: int32
+            default: 0
+        - name: pagination.pageSize
+          in: query
+          description: Number of items per page
+          required: false
+          schema:
+            type: integer
+            format: int32
+            default: 10
+        - name: pagination.sortBy
+          in: query
+          description: Field to sort by
+          required: false
+          schema:
+            type: string
+        - name: pagination.sortDirection
+          in: query
+          description: Sort direction (ASC or DESC)
+          required: false
+          schema:
+            type: string
+            default: DESC
+        - name: options.caseInsensitiveStrings
+          in: query
+          description: Enable case-insensitive string filtering
+          required: false
+          schema:
+            type: boolean
+            default: false
+        - name: options.includeInheritedFields
+          in: query
+          description: Include fields from parent classes
+          required: false
+          schema:
+            type: boolean
+            default: false
+        - name: filters.collectionCaseId
+          in: query
+          description: Exact filter for collection case id
+          required: false
+          schema:
+            type: string
+        - name: filters.promisedDate
+          in: query
+          description: Exact filter for promised date
+          required: false
+          schema:
+            type: string
+            format: date-time
+        - name: rangeFilters.ranges[promisedDate].from
+          in: query
+          description: Filter promised date from value
+          required: false
+          schema:
+            type: string
+            format: date-time
+        - name: rangeFilters.ranges[promisedDate].to
+          in: query
+          description: Filter promised date to value
+          required: false
+          schema:
+            type: string
+            format: date-time
+        - name: filters.promisedAmount
+          in: query
+          description: Exact filter for promised amount
+          required: false
+          schema:
+            type: string
+        - name: rangeFilters.ranges[promisedAmount].from
+          in: query
+          description: Filter promised amount from value
+          required: false
+          schema:
+            type: string
+        - name: rangeFilters.ranges[promisedAmount].to
+          in: query
+          description: Filter promised amount to value
+          required: false
+          schema:
+            type: string
+        - name: filters.actualPaidDate
+          in: query
+          description: Exact filter for actual paid date
+          required: false
+          schema:
+            type: string
+            format: date-time
+        - name: rangeFilters.ranges[actualPaidDate].from
+          in: query
+          description: Filter actual paid date from value
+          required: false
+          schema:
+            type: string
+            format: date-time
+        - name: rangeFilters.ranges[actualPaidDate].to
+          in: query
+          description: Filter actual paid date to value
+          required: false
+          schema:
+            type: string
+            format: date-time
+        - name: filters.actualPaidAmount
+          in: query
+          description: Exact filter for actual paid amount
+          required: false
+          schema:
+            type: string
+        - name: rangeFilters.ranges[actualPaidAmount].from
+          in: query
+          description: Filter actual paid amount from value
+          required: false
+          schema:
+            type: string
+        - name: rangeFilters.ranges[actualPaidAmount].to
+          in: query
+          description: Filter actual paid amount to value
+          required: false
+          schema:
+            type: string
+        - name: filters.isKept
+          in: query
+          description: Exact filter for is kept
+          required: false
+          schema:
+            type: boolean
+        - name: filters.note
+          in: query
+          description: Exact filter for note
+          required: false
+          schema:
+            type: string
+        - name: filters.createdAt
+          in: query
+          description: Exact filter for created at
+          required: false
+          schema:
+            type: string
+            format: date-time
+        - name: rangeFilters.ranges[createdAt].from
+          in: query
+          description: Filter created at from value
+          required: false
+          schema:
+            type: string
+            format: date-time
+        - name: rangeFilters.ranges[createdAt].to
+          in: query
+          description: Filter created at to value
+          required: false
+          schema:
+            type: string
+            format: date-time
+        - name: filters.updatedAt
+          in: query
+          description: Exact filter for updated at
+          required: false
+          schema:
+            type: string
+            format: date-time
+        - name: rangeFilters.ranges[updatedAt].from
+          in: query
+          description: Filter updated at from value
+          required: false
+          schema:
+            type: string
+            format: date-time
+        - name: rangeFilters.ranges[updatedAt].to
+          in: query
+          description: Filter updated at to value
+          required: false
+          schema:
+            type: string
+            format: date-time
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/PaginationResponseCollectionPromiseDTO'
+    post:
+      tags:
+        - CollectionPromise
+      summary: Create a new payment promise
+      operationId: create_2
+      parameters:
+        - name: collectionCaseId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - name: X-Idempotency-Key
+          in: header
+          description: Unique key for idempotent requests. If provided, ensures that identical requests with the same key will only be processed once.
+          required: false
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CollectionPromiseDTO'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/CollectionPromiseDTO'
+  /api/v1/collection-cases/{collectionCaseId}/escalations:
+    get:
+      tags:
+        - CollectionEscalation
+      summary: List or search escalations for a collection case
+      operationId: findAll_3
+      parameters:
+        - name: collectionCaseId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - name: pagination.pageNumber
+          in: query
+          description: Page number (0-based)
+          required: false
+          schema:
+            type: integer
+            format: int32
+            default: 0
+        - name: pagination.pageSize
+          in: query
+          description: Number of items per page
+          required: false
+          schema:
+            type: integer
+            format: int32
+            default: 10
+        - name: pagination.sortBy
+          in: query
+          description: Field to sort by
+          required: false
+          schema:
+            type: string
+        - name: pagination.sortDirection
+          in: query
+          description: Sort direction (ASC or DESC)
+          required: false
+          schema:
+            type: string
+            default: DESC
+        - name: options.caseInsensitiveStrings
+          in: query
+          description: Enable case-insensitive string filtering
+          required: false
+          schema:
+            type: boolean
+            default: false
+        - name: options.includeInheritedFields
+          in: query
+          description: Include fields from parent classes
+          required: false
+          schema:
+            type: boolean
+            default: false
+        - name: filters.collectionCaseId
+          in: query
+          description: Exact filter for collection case id
+          required: false
+          schema:
+            type: string
+        - name: filters.escalationLevel
+          in: query
+          description: Exact filter for escalation level
+          required: false
+          schema:
+            type: string
+            enum:
+              - LEVEL_1
+              - LEVEL_2
+              - LEVEL_3
+              - LEGAL
+              - EXTERNAL
+        - name: filters.escalationReason
+          in: query
+          description: Exact filter for escalation reason
+          required: false
+          schema:
+            type: string
+            enum:
+              - BROKEN_PROMISE
+              - NO_CONTACT
+              - HIGH_AMOUNT
+              - FRAUD_SUSPECT
+        - name: filters.escalationDate
+          in: query
+          description: Exact filter for escalation date
+          required: false
+          schema:
+            type: string
+            format: date-time
+        - name: rangeFilters.ranges[escalationDate].from
+          in: query
+          description: Filter escalation date from value
+          required: false
+          schema:
+            type: string
+            format: date-time
+        - name: rangeFilters.ranges[escalationDate].to
+          in: query
+          description: Filter escalation date to value
+          required: false
+          schema:
+            type: string
+            format: date-time
+        - name: filters.notes
+          in: query
+          description: Exact filter for notes
+          required: false
+          schema:
+            type: string
+        - name: filters.createdAt
+          in: query
+          description: Exact filter for created at
+          required: false
+          schema:
+            type: string
+            format: date-time
+        - name: rangeFilters.ranges[createdAt].from
+          in: query
+          description: Filter created at from value
+          required: false
+          schema:
+            type: string
+            format: date-time
+        - name: rangeFilters.ranges[createdAt].to
+          in: query
+          description: Filter created at to value
+          required: false
+          schema:
+            type: string
+            format: date-time
+        - name: filters.updatedAt
+          in: query
+          description: Exact filter for updated at
+          required: false
+          schema:
+            type: string
+            format: date-time
+        - name: rangeFilters.ranges[updatedAt].from
+          in: query
+          description: Filter updated at from value
+          required: false
+          schema:
+            type: string
+            format: date-time
+        - name: rangeFilters.ranges[updatedAt].to
+          in: query
+          description: Filter updated at to value
+          required: false
+          schema:
+            type: string
+            format: date-time
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/PaginationResponseCollectionEscalationDTO'
+    post:
+      tags:
+        - CollectionEscalation
+      summary: Create a new escalation
+      operationId: create_3
+      parameters:
+        - name: collectionCaseId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - name: X-Idempotency-Key
+          in: header
+          description: Unique key for idempotent requests. If provided, ensures that identical requests with the same key will only be processed once.
+          required: false
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CollectionEscalationDTO'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/CollectionEscalationDTO'
+  /api/v1/collection-cases/{collectionCaseId}/actions:
+    get:
+      tags:
+        - CollectionAction
+      summary: List or search actions for a collection case
+      operationId: findAll_4
+      parameters:
+        - name: collectionCaseId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - name: pagination.pageNumber
+          in: query
+          description: Page number (0-based)
+          required: false
+          schema:
+            type: integer
+            format: int32
+            default: 0
+        - name: pagination.pageSize
+          in: query
+          description: Number of items per page
+          required: false
+          schema:
+            type: integer
+            format: int32
+            default: 10
+        - name: pagination.sortBy
+          in: query
+          description: Field to sort by
+          required: false
+          schema:
+            type: string
+        - name: pagination.sortDirection
+          in: query
+          description: Sort direction (ASC or DESC)
+          required: false
+          schema:
+            type: string
+            default: DESC
+        - name: options.caseInsensitiveStrings
+          in: query
+          description: Enable case-insensitive string filtering
+          required: false
+          schema:
+            type: boolean
+            default: false
+        - name: options.includeInheritedFields
+          in: query
+          description: Include fields from parent classes
+          required: false
+          schema:
+            type: boolean
+            default: false
+        - name: filters.collectionCaseId
+          in: query
+          description: Exact filter for collection case id
+          required: false
+          schema:
+            type: string
+        - name: filters.actionType
+          in: query
+          description: Exact filter for action type
+          required: false
+          schema:
+            type: string
+            enum:
+              - PHONE_CALL
+              - SMS
+              - EMAIL
+              - VISIT
+              - LEGAL_NOTICE
+              - DEMAND_LETTER
+        - name: filters.actionDate
+          in: query
+          description: Exact filter for action date
+          required: false
+          schema:
+            type: string
+            format: date-time
+        - name: rangeFilters.ranges[actionDate].from
+          in: query
+          description: Filter action date from value
+          required: false
+          schema:
+            type: string
+            format: date-time
+        - name: rangeFilters.ranges[actionDate].to
+          in: query
+          description: Filter action date to value
+          required: false
+          schema:
+            type: string
+            format: date-time
+        - name: filters.outcome
+          in: query
+          description: Exact filter for outcome
+          required: false
+          schema:
+            type: string
+            enum:
+              - NO_ANSWER
+              - PROMISE_TO_PAY
+              - PAID_PARTIAL
+              - REFUSED
+              - DISPUTED
+        - name: filters.notes
+          in: query
+          description: Exact filter for notes
+          required: false
+          schema:
+            type: string
+        - name: filters.createdAt
+          in: query
+          description: Exact filter for created at
+          required: false
+          schema:
+            type: string
+            format: date-time
+        - name: rangeFilters.ranges[createdAt].from
+          in: query
+          description: Filter created at from value
+          required: false
+          schema:
+            type: string
+            format: date-time
+        - name: rangeFilters.ranges[createdAt].to
+          in: query
+          description: Filter created at to value
+          required: false
+          schema:
+            type: string
+            format: date-time
+        - name: filters.updatedAt
+          in: query
+          description: Exact filter for updated at
+          required: false
+          schema:
+            type: string
+            format: date-time
+        - name: rangeFilters.ranges[updatedAt].from
+          in: query
+          description: Filter updated at from value
+          required: false
+          schema:
+            type: string
+            format: date-time
+        - name: rangeFilters.ranges[updatedAt].to
+          in: query
+          description: Filter updated at to value
+          required: false
+          schema:
+            type: string
+            format: date-time
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/PaginationResponseCollectionActionDTO'
+    post:
+      tags:
+        - CollectionAction
+      summary: Create a new action on a collection case
+      operationId: create_4
+      parameters:
+        - name: collectionCaseId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - name: X-Idempotency-Key
+          in: header
+          description: Unique key for idempotent requests. If provided, ensures that identical requests with the same key will only be processed once.
+          required: false
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CollectionActionDTO'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/CollectionActionDTO'
+components:
+  schemas:
+    CollectionCaseDTO:
+      required:
+        - caseOpenedAt
+        - collectionStatus
+        - daysPastDue
+        - delinquencyStage
+        - loanServicingCaseId
+        - totalDue
+      type: object
+      properties:
+        collectionCaseId:
+          type: string
+          format: uuid
+          readOnly: true
+        loanServicingCaseId:
+          type: string
+          format: uuid
+        collectionStatus:
+          type: string
+          enum:
+            - OPEN
+            - CLOSED
+            - LEGAL
+            - RESTRUCTURED
+            - SETTLED
+        daysPastDue:
+          minimum: 0
+          type: integer
+          format: int32
+        delinquencyStage:
+          type: string
+          enum:
+            - EARLY
+            - MID
+            - LATE
+            - LEGAL
+            - WRITE_OFF
+        totalDue:
+          minimum: 0
+          exclusiveMinimum: true
+          type: number
+        totalRecovered:
+          minimum: 0
+          exclusiveMinimum: false
+          type: number
+        caseOpenedAt:
+          type: string
+          format: date-time
+        caseClosedAt:
+          type: string
+          format: date-time
+        remarks:
+          maxLength: 1000
+          minLength: 0
+          type: string
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+    CollectionStatusHistoryDTO:
+      required:
+        - changedAt
+        - changedBy
+        - collectionCaseId
+        - newStatus
+        - reasonCode
+      type: object
+      properties:
+        collectionStatusHistoryId:
+          type: string
+          format: uuid
+          readOnly: true
+        collectionCaseId:
+          type: string
+          format: uuid
+        oldStatus:
+          type: string
+          enum:
+            - OPEN
+            - CLOSED
+            - LEGAL
+            - RESTRUCTURED
+            - SETTLED
+        newStatus:
+          type: string
+          enum:
+            - OPEN
+            - CLOSED
+            - LEGAL
+            - RESTRUCTURED
+            - SETTLED
+        reasonCode:
+          type: string
+          enum:
+            - PROMISE_BROKEN
+            - LEGAL_REFERRAL
+            - PAYMENT_RECEIVED
+            - NO_CONTACT
+        changedAt:
+          type: string
+          format: date-time
+        changedBy:
+          maxLength: 255
+          minLength: 0
+          type: string
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+    CollectionPromiseDTO:
+      required:
+        - collectionCaseId
+        - promisedAmount
+        - promisedDate
+      type: object
+      properties:
+        collectionPromiseId:
+          type: string
+          format: uuid
+          readOnly: true
+        collectionCaseId:
+          type: string
+          format: uuid
+        promisedDate:
+          type: string
+          format: date-time
+        promisedAmount:
+          minimum: 0.01
+          exclusiveMinimum: false
+          type: number
+        actualPaidDate:
+          type: string
+          format: date-time
+        actualPaidAmount:
+          minimum: 0
+          exclusiveMinimum: false
+          type: number
+        isKept:
+          type: boolean
+        note:
+          maxLength: 1000
+          minLength: 0
+          type: string
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+    CollectionEscalationDTO:
+      required:
+        - collectionCaseId
+        - escalationDate
+        - escalationLevel
+        - escalationReason
+      type: object
+      properties:
+        collectionEscalationId:
+          type: string
+          format: uuid
+          readOnly: true
+        collectionCaseId:
+          type: string
+          format: uuid
+        escalationLevel:
+          type: string
+          enum:
+            - LEVEL_1
+            - LEVEL_2
+            - LEVEL_3
+            - LEGAL
+            - EXTERNAL
+        escalationReason:
+          type: string
+          enum:
+            - BROKEN_PROMISE
+            - NO_CONTACT
+            - HIGH_AMOUNT
+            - FRAUD_SUSPECT
+        escalationDate:
+          type: string
+          format: date-time
+        notes:
+          maxLength: 2000
+          minLength: 0
+          type: string
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+    CollectionActionDTO:
+      required:
+        - actionDate
+        - actionType
+        - collectionCaseId
+        - outcome
+      type: object
+      properties:
+        collectionActionId:
+          type: string
+          format: uuid
+          readOnly: true
+        collectionCaseId:
+          type: string
+          format: uuid
+        actionType:
+          type: string
+          enum:
+            - PHONE_CALL
+            - SMS
+            - EMAIL
+            - VISIT
+            - LEGAL_NOTICE
+            - DEMAND_LETTER
+        actionDate:
+          type: string
+          format: date-time
+        outcome:
+          type: string
+          enum:
+            - NO_ANSWER
+            - PROMISE_TO_PAY
+            - PAID_PARTIAL
+            - REFUSED
+            - DISPUTED
+        notes:
+          maxLength: 2000
+          minLength: 0
+          type: string
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+    PaginationResponseCollectionCaseDTO:
+      type: object
+      properties:
+        content:
+          type: array
+          description: The list of items for the current page.
+          items:
+            $ref: '#/components/schemas/CollectionCaseDTO'
+        totalElements:
+          type: integer
+          description: The total number of elements across all pages.
+          format: int64
+        totalPages:
+          type: integer
+          description: The total number of pages based on the data size and page size.
+          format: int32
+        currentPage:
+          type: integer
+          description: The current page number, typically zero-based.
+          format: int32
+      description: Represents a paginated response containing a list of items and pagination metadata.
+    PaginationResponseCollectionStatusHistoryDTO:
+      type: object
+      properties:
+        content:
+          type: array
+          description: The list of items for the current page.
+          items:
+            $ref: '#/components/schemas/CollectionStatusHistoryDTO'
+        totalElements:
+          type: integer
+          description: The total number of elements across all pages.
+          format: int64
+        totalPages:
+          type: integer
+          description: The total number of pages based on the data size and page size.
+          format: int32
+        currentPage:
+          type: integer
+          description: The current page number, typically zero-based.
+          format: int32
+      description: Represents a paginated response containing a list of items and pagination metadata.
+    PaginationResponseCollectionPromiseDTO:
+      type: object
+      properties:
+        content:
+          type: array
+          description: The list of items for the current page.
+          items:
+            $ref: '#/components/schemas/CollectionPromiseDTO'
+        totalElements:
+          type: integer
+          description: The total number of elements across all pages.
+          format: int64
+        totalPages:
+          type: integer
+          description: The total number of pages based on the data size and page size.
+          format: int32
+        currentPage:
+          type: integer
+          description: The current page number, typically zero-based.
+          format: int32
+      description: Represents a paginated response containing a list of items and pagination metadata.
+    PaginationResponseCollectionEscalationDTO:
+      type: object
+      properties:
+        content:
+          type: array
+          description: The list of items for the current page.
+          items:
+            $ref: '#/components/schemas/CollectionEscalationDTO'
+        totalElements:
+          type: integer
+          description: The total number of elements across all pages.
+          format: int64
+        totalPages:
+          type: integer
+          description: The total number of pages based on the data size and page size.
+          format: int32
+        currentPage:
+          type: integer
+          description: The current page number, typically zero-based.
+          format: int32
+      description: Represents a paginated response containing a list of items and pagination metadata.
+    PaginationResponseCollectionActionDTO:
+      type: object
+      properties:
+        content:
+          type: array
+          description: The list of items for the current page.
+          items:
+            $ref: '#/components/schemas/CollectionActionDTO'
+        totalElements:
+          type: integer
+          description: The total number of elements across all pages.
+          format: int64
+        totalPages:
+          type: integer
+          description: The total number of pages based on the data size and page size.
+          format: int32
+        currentPage:
+          type: integer
+          description: The current page number, typically zero-based.
+          format: int32
+      description: Represents a paginated response containing a list of items and pagination metadata.
