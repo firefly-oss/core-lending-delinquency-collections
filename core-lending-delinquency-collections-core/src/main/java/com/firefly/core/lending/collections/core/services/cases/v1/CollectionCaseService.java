@@ -5,6 +5,8 @@ import com.firefly.common.core.queries.PaginationResponse;
 import com.firefly.core.lending.collections.interfaces.dtos.cases.v1.CollectionCaseDTO;
 import reactor.core.publisher.Mono;
 
+import java.util.UUID;
+
 public interface CollectionCaseService {
 
     /**
@@ -29,7 +31,7 @@ public interface CollectionCaseService {
      * @param collectionCaseId the ID of the collection case to be retrieved
      * @return a Mono emitting the retrieved CollectionCaseDTO instance or an empty Mono if not found
      */
-    Mono<CollectionCaseDTO> getById(Long collectionCaseId);
+    Mono<CollectionCaseDTO> getById(UUID collectionCaseId);
 
     /**
      * Updates an existing collection case with the specified ID using the provided data.
@@ -38,7 +40,7 @@ public interface CollectionCaseService {
      * @param dto the details to update the collection case with
      * @return a Mono emitting the updated CollectionCaseDTO, or an error signal if the update fails
      */
-    Mono<CollectionCaseDTO> update(Long collectionCaseId, CollectionCaseDTO dto);
+    Mono<CollectionCaseDTO> update(UUID collectionCaseId, CollectionCaseDTO dto);
 
     /**
      * Deletes a collection case based on the provided collection case ID.
@@ -46,6 +48,6 @@ public interface CollectionCaseService {
      * @param collectionCaseId the ID of the collection case to be deleted
      * @return a {@code Mono<Void>} indicating successful completion of the deletion operation
      */
-    Mono<Void> delete(Long collectionCaseId);
+    Mono<Void> delete(UUID collectionCaseId);
 
 }

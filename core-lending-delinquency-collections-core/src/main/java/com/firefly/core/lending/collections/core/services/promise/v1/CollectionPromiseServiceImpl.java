@@ -12,6 +12,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import reactor.core.publisher.Mono;
 
+import java.util.UUID;
+
 @Service
 @Transactional
 public class CollectionPromiseServiceImpl implements CollectionPromiseService {
@@ -23,7 +25,7 @@ public class CollectionPromiseServiceImpl implements CollectionPromiseService {
     private CollectionPromiseMapper mapper;
 
     @Override
-    public Mono<PaginationResponse<CollectionPromiseDTO>> findAll(Long collectionCaseId, FilterRequest<CollectionPromiseDTO> filterRequest) {
+    public Mono<PaginationResponse<CollectionPromiseDTO>> findAll(UUID collectionCaseId, FilterRequest<CollectionPromiseDTO> filterRequest) {
         filterRequest.getFilters().setCollectionCaseId(collectionCaseId);
         return FilterUtils.createFilter(
                 CollectionPromise.class,
@@ -32,21 +34,21 @@ public class CollectionPromiseServiceImpl implements CollectionPromiseService {
     }
 
     @Override
-    public Mono<CollectionPromiseDTO> create(Long collectionCaseId, CollectionPromiseDTO dto) {
+    public Mono<CollectionPromiseDTO> create(UUID collectionCaseId, CollectionPromiseDTO dto) {
         dto.setCollectionCaseId(collectionCaseId);
         return repository.save(mapper.toEntity(dto))
                 .map(mapper::toDTO);
     }
 
     @Override
-    public Mono<CollectionPromiseDTO> getById(Long collectionCaseId, Long promiseId) {
+    public Mono<CollectionPromiseDTO> getById(UUID collectionCaseId, UUID promiseId) {
         return repository.findById(promiseId)
                 .filter(entity -> entity.getCollectionCaseId().equals(collectionCaseId))
                 .map(mapper::toDTO);
     }
 
     @Override
-    public Mono<CollectionPromiseDTO> update(Long collectionCaseId, Long promiseId, CollectionPromiseDTO dto) {
+    public Mono<CollectionPromiseDTO> update(UUID collectionCaseId, UUID promiseId, CollectionPromiseDTO dto) {
         return repository.findById(promiseId)
                 .filter(entity -> entity.getCollectionCaseId().equals(collectionCaseId))
                 .flatMap(existing -> {
@@ -58,7 +60,7 @@ public class CollectionPromiseServiceImpl implements CollectionPromiseService {
     }
 
     @Override
-    public Mono<Void> delete(Long collectionCaseId, Long promiseId) {
+    public Mono<Void> delete(UUID collectionCaseId, UUID promiseId) {
         return repository.findById(promiseId)
                 .filter(entity -> entity.getCollectionCaseId().equals(collectionCaseId))
                 .flatMap(repository::delete);

@@ -12,6 +12,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import reactor.core.publisher.Mono;
 
+import java.util.UUID;
+
 @Service
 @Transactional
 public class CollectionCaseServiceImpl implements CollectionCaseService {
@@ -39,14 +41,14 @@ public class CollectionCaseServiceImpl implements CollectionCaseService {
     }
 
     @Override
-    public Mono<CollectionCaseDTO> getById(Long collectionCaseId) {
+    public Mono<CollectionCaseDTO> getById(UUID collectionCaseId) {
         return repository.findById(collectionCaseId)
                 .map(mapper::toDTO)
                 .switchIfEmpty(Mono.error(new RuntimeException("Collection case not found")));
     }
 
     @Override
-    public Mono<CollectionCaseDTO> update(Long collectionCaseId, CollectionCaseDTO dto) {
+    public Mono<CollectionCaseDTO> update(UUID collectionCaseId, CollectionCaseDTO dto) {
         return repository.findById(collectionCaseId)
                 .switchIfEmpty(Mono.error(new RuntimeException("Collection case not found")))
                 .flatMap(existing -> {
@@ -58,7 +60,7 @@ public class CollectionCaseServiceImpl implements CollectionCaseService {
     }
 
     @Override
-    public Mono<Void> delete(Long collectionCaseId) {
+    public Mono<Void> delete(UUID collectionCaseId) {
         return repository.findById(collectionCaseId)
                 .switchIfEmpty(Mono.error(new RuntimeException("Collection case not found")))
                 .flatMap(repository::delete);

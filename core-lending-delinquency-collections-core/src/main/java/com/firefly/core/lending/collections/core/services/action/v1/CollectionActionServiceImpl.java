@@ -12,6 +12,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import reactor.core.publisher.Mono;
 
+import java.util.UUID;
+
 @Service
 @Transactional
 public class CollectionActionServiceImpl implements CollectionActionService {
@@ -23,7 +25,7 @@ public class CollectionActionServiceImpl implements CollectionActionService {
     private CollectionActionMapper mapper;
 
     @Override
-    public Mono<PaginationResponse<CollectionActionDTO>> findAll(Long collectionCaseId, FilterRequest<CollectionActionDTO> filterRequest) {
+    public Mono<PaginationResponse<CollectionActionDTO>> findAll(UUID collectionCaseId, FilterRequest<CollectionActionDTO> filterRequest) {
         filterRequest.getFilters().setCollectionCaseId(collectionCaseId);
         return FilterUtils.createFilter(
                 CollectionAction.class,
@@ -32,7 +34,7 @@ public class CollectionActionServiceImpl implements CollectionActionService {
     }
 
     @Override
-    public Mono<CollectionActionDTO> create(Long collectionCaseId, CollectionActionDTO dto) {
+    public Mono<CollectionActionDTO> create(UUID collectionCaseId, CollectionActionDTO dto) {
         dto.setCollectionCaseId(collectionCaseId);
         CollectionAction entity = mapper.toEntity(dto);
         return Mono.just(entity)
@@ -46,14 +48,14 @@ public class CollectionActionServiceImpl implements CollectionActionService {
     }
 
     @Override
-    public Mono<CollectionActionDTO> getById(Long collectionCaseId, Long actionId) {
+    public Mono<CollectionActionDTO> getById(UUID collectionCaseId, UUID actionId) {
         return repository.findById(actionId)
                 .filter(entity -> entity.getCollectionCaseId().equals(collectionCaseId))
                 .map(mapper::toDTO);
     }
 
     @Override
-    public Mono<CollectionActionDTO> update(Long collectionCaseId, Long actionId, CollectionActionDTO dto) {
+    public Mono<CollectionActionDTO> update(UUID collectionCaseId, UUID actionId, CollectionActionDTO dto) {
         return repository.findById(actionId)
                 .filter(entity -> entity.getCollectionCaseId().equals(collectionCaseId))
                 .flatMap(entity -> {
@@ -68,7 +70,7 @@ public class CollectionActionServiceImpl implements CollectionActionService {
     }
 
     @Override
-    public Mono<Void> delete(Long collectionCaseId, Long actionId) {
+    public Mono<Void> delete(UUID collectionCaseId, UUID actionId) {
         return repository.findById(actionId)
                 .filter(entity -> entity.getCollectionCaseId().equals(collectionCaseId))
                 .flatMap(repository::delete);

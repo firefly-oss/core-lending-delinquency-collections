@@ -5,6 +5,8 @@ import com.firefly.common.core.queries.PaginationResponse;
 import com.firefly.core.lending.collections.interfaces.dtos.status.v1.CollectionStatusHistoryDTO;
 import reactor.core.publisher.Mono;
 
+import java.util.UUID;
+
 public interface CollectionStatusHistoryService {
 
     /**
@@ -15,7 +17,7 @@ public interface CollectionStatusHistoryService {
      * @param filterRequest the filter criteria to apply when retrieving the status history records
      * @return a Mono emitting a {@code PaginationResponse} containing the filtered collection status history records
      */
-    Mono<PaginationResponse<CollectionStatusHistoryDTO>> findAll(Long collectionCaseId,
+    Mono<PaginationResponse<CollectionStatusHistoryDTO>> findAll(UUID collectionCaseId,
                                                                  FilterRequest<CollectionStatusHistoryDTO> filterRequest);
 
     /**
@@ -25,7 +27,7 @@ public interface CollectionStatusHistoryService {
      * @param dto the {@link CollectionStatusHistoryDTO} object containing the details of the status history to be created
      * @return a {@link Mono} emitting the created {@link CollectionStatusHistoryDTO} object upon successful creation
      */
-    Mono<CollectionStatusHistoryDTO> create(Long collectionCaseId, CollectionStatusHistoryDTO dto);
+    Mono<CollectionStatusHistoryDTO> create(UUID collectionCaseId, CollectionStatusHistoryDTO dto);
 
     /**
      * Retrieves a specific collection status history record by its unique identifiers.
@@ -34,7 +36,7 @@ public interface CollectionStatusHistoryService {
      * @param statusHistoryId the unique ID of the specific status history record to be retrieved
      * @return a Mono emitting the retrieved CollectionStatusHistoryDTO instance, or an empty Mono if not found
      */
-    Mono<CollectionStatusHistoryDTO> getById(Long collectionCaseId, Long statusHistoryId);
+    Mono<CollectionStatusHistoryDTO> getById(UUID collectionCaseId, UUID statusHistoryId);
 
     /**
      * Updates an existing collection status history entry for the specified collection case and status history IDs
@@ -47,7 +49,7 @@ public interface CollectionStatusHistoryService {
      * @return a {@link Mono} emitting the updated {@link CollectionStatusHistoryDTO} object upon successful update,
      *         or an error signal if the update fails
      */
-    Mono<CollectionStatusHistoryDTO> update(Long collectionCaseId, Long statusHistoryId, CollectionStatusHistoryDTO dto);
+    Mono<CollectionStatusHistoryDTO> update(UUID collectionCaseId, UUID statusHistoryId, CollectionStatusHistoryDTO dto);
 
     /**
      * Deletes a specific status history record associated with a given collection case.
@@ -56,5 +58,5 @@ public interface CollectionStatusHistoryService {
      * @param statusHistoryId the ID of the status history record to be deleted
      * @return a {@code Mono<Void>} indicating the completion of the delete operation
      */
-    Mono<Void> delete(Long collectionCaseId, Long statusHistoryId);
+    Mono<Void> delete(UUID collectionCaseId, UUID statusHistoryId);
 }

@@ -12,6 +12,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import reactor.core.publisher.Mono;
 
+import java.util.UUID;
+
 @Service
 @Transactional
 public class CollectionStatusHistoryServiceImpl implements CollectionStatusHistoryService {
@@ -23,7 +25,7 @@ public class CollectionStatusHistoryServiceImpl implements CollectionStatusHisto
     private CollectionStatusHistoryMapper mapper;
 
     @Override
-    public Mono<PaginationResponse<CollectionStatusHistoryDTO>> findAll(Long collectionCaseId, FilterRequest<CollectionStatusHistoryDTO> filterRequest) {
+    public Mono<PaginationResponse<CollectionStatusHistoryDTO>> findAll(UUID collectionCaseId, FilterRequest<CollectionStatusHistoryDTO> filterRequest) {
         filterRequest.getFilters().setCollectionCaseId(collectionCaseId);
         return FilterUtils.createFilter(
                 CollectionStatusHistory.class,
@@ -32,7 +34,7 @@ public class CollectionStatusHistoryServiceImpl implements CollectionStatusHisto
     }
 
     @Override
-    public Mono<CollectionStatusHistoryDTO> create(Long collectionCaseId, CollectionStatusHistoryDTO dto) {
+    public Mono<CollectionStatusHistoryDTO> create(UUID collectionCaseId, CollectionStatusHistoryDTO dto) {
         dto.setCollectionCaseId(collectionCaseId);
         return Mono.just(dto)
                 .map(mapper::toEntity)
@@ -41,14 +43,14 @@ public class CollectionStatusHistoryServiceImpl implements CollectionStatusHisto
     }
 
     @Override
-    public Mono<CollectionStatusHistoryDTO> getById(Long collectionCaseId, Long statusHistoryId) {
+    public Mono<CollectionStatusHistoryDTO> getById(UUID collectionCaseId, UUID statusHistoryId) {
         return repository.findById(statusHistoryId)
                 .filter(history -> history.getCollectionCaseId().equals(collectionCaseId))
                 .map(mapper::toDTO);
     }
 
     @Override
-    public Mono<CollectionStatusHistoryDTO> update(Long collectionCaseId, Long statusHistoryId, CollectionStatusHistoryDTO dto) {
+    public Mono<CollectionStatusHistoryDTO> update(UUID collectionCaseId, UUID statusHistoryId, CollectionStatusHistoryDTO dto) {
         return repository.findById(statusHistoryId)
                 .filter(history -> history.getCollectionCaseId().equals(collectionCaseId))
                 .flatMap(history -> {
@@ -62,7 +64,7 @@ public class CollectionStatusHistoryServiceImpl implements CollectionStatusHisto
     }
 
     @Override
-    public Mono<Void> delete(Long collectionCaseId, Long statusHistoryId) {
+    public Mono<Void> delete(UUID collectionCaseId, UUID statusHistoryId) {
         return repository.findById(statusHistoryId)
                 .filter(history -> history.getCollectionCaseId().equals(collectionCaseId))
                 .flatMap(repository::delete);

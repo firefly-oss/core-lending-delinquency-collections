@@ -5,6 +5,8 @@ import com.firefly.common.core.queries.PaginationResponse;
 import com.firefly.core.lending.collections.interfaces.dtos.promise.v1.CollectionPromiseDTO;
 import reactor.core.publisher.Mono;
 
+import java.util.UUID;
+
 public interface CollectionPromiseService {
     /**
      * Retrieves a paginated list of collection promises for a specific collection case,
@@ -14,7 +16,7 @@ public interface CollectionPromiseService {
      * @param filterRequest the filter criteria to apply when retrieving the collection promises
      * @return a {@link Mono} emitting a {@link PaginationResponse} containing the filtered collection promises
      */
-    Mono<PaginationResponse<CollectionPromiseDTO>> findAll(Long collectionCaseId,
+    Mono<PaginationResponse<CollectionPromiseDTO>> findAll(UUID collectionCaseId,
                                                            FilterRequest<CollectionPromiseDTO> filterRequest);
 
     /**
@@ -24,7 +26,7 @@ public interface CollectionPromiseService {
      * @param dto the {@link CollectionPromiseDTO} object containing the details of the collection promise to be created
      * @return a {@link Mono} emitting the created {@link CollectionPromiseDTO} object upon successful creation
      */
-    Mono<CollectionPromiseDTO> create(Long collectionCaseId, CollectionPromiseDTO dto);
+    Mono<CollectionPromiseDTO> create(UUID collectionCaseId, CollectionPromiseDTO dto);
 
     /**
      * Retrieves a specific collection promise for the given collection case and promise identifiers.
@@ -33,7 +35,7 @@ public interface CollectionPromiseService {
      * @param promiseId the unique identifier of the promise to be retrieved
      * @return a {@link Mono} emitting the retrieved {@link CollectionPromiseDTO} object, or an empty Mono if not found
      */
-    Mono<CollectionPromiseDTO> getById(Long collectionCaseId, Long promiseId);
+    Mono<CollectionPromiseDTO> getById(UUID collectionCaseId, UUID promiseId);
 
     /**
      * Updates an existing collection promise for the specified collection case and promise IDs
@@ -45,7 +47,7 @@ public interface CollectionPromiseService {
      * @return a {@link Mono} emitting the updated {@link CollectionPromiseDTO} object upon successful update,
      *         or an error signal if the update fails
      */
-    Mono<CollectionPromiseDTO> update(Long collectionCaseId, Long promiseId, CollectionPromiseDTO dto);
+    Mono<CollectionPromiseDTO> update(UUID collectionCaseId, UUID promiseId, CollectionPromiseDTO dto);
 
     /**
      * Deletes a specific collection promise identified by the given collection case ID and promise ID.
@@ -54,5 +56,5 @@ public interface CollectionPromiseService {
      * @param promiseId the ID of the promise to be deleted
      * @return a {@code Mono<Void>} indicating the completion of the delete operation
      */
-    Mono<Void> delete(Long collectionCaseId, Long promiseId);
+    Mono<Void> delete(UUID collectionCaseId, UUID promiseId);
 }

@@ -12,6 +12,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import reactor.core.publisher.Mono;
 
+import java.util.UUID;
+
 @Service
 @Transactional
 public class CollectionEscalationServiceImpl implements CollectionEscalationService {
@@ -23,7 +25,7 @@ public class CollectionEscalationServiceImpl implements CollectionEscalationServ
     private CollectionEscalationMapper mapper;
 
     @Override
-    public Mono<PaginationResponse<CollectionEscalationDTO>> findAll(Long collectionCaseId, FilterRequest<CollectionEscalationDTO> filterRequest) {
+    public Mono<PaginationResponse<CollectionEscalationDTO>> findAll(UUID collectionCaseId, FilterRequest<CollectionEscalationDTO> filterRequest) {
         filterRequest.getFilters().setCollectionCaseId(collectionCaseId);
         return FilterUtils.createFilter(
                 CollectionEscalation.class,
@@ -32,7 +34,7 @@ public class CollectionEscalationServiceImpl implements CollectionEscalationServ
     }
 
     @Override
-    public Mono<CollectionEscalationDTO> create(Long collectionCaseId, CollectionEscalationDTO dto) {
+    public Mono<CollectionEscalationDTO> create(UUID collectionCaseId, CollectionEscalationDTO dto) {
         dto.setCollectionCaseId(collectionCaseId);
         CollectionEscalation entity = mapper.toEntity(dto);
         return repository.save(entity)
@@ -40,14 +42,14 @@ public class CollectionEscalationServiceImpl implements CollectionEscalationServ
     }
 
     @Override
-    public Mono<CollectionEscalationDTO> getById(Long collectionCaseId, Long escalationId) {
+    public Mono<CollectionEscalationDTO> getById(UUID collectionCaseId, UUID escalationId) {
         return repository.findById(escalationId)
                 .filter(entity -> entity.getCollectionCaseId().equals(collectionCaseId))
                 .map(mapper::toDTO);
     }
 
     @Override
-    public Mono<CollectionEscalationDTO> update(Long collectionCaseId, Long escalationId, CollectionEscalationDTO dto) {
+    public Mono<CollectionEscalationDTO> update(UUID collectionCaseId, UUID escalationId, CollectionEscalationDTO dto) {
         return repository.findById(escalationId)
                 .filter(entity -> entity.getCollectionCaseId().equals(collectionCaseId))
                 .flatMap(existingEntity -> {
@@ -60,7 +62,7 @@ public class CollectionEscalationServiceImpl implements CollectionEscalationServ
     }
 
     @Override
-    public Mono<Void> delete(Long collectionCaseId, Long escalationId) {
+    public Mono<Void> delete(UUID collectionCaseId, UUID escalationId) {
         return repository.findById(escalationId)
                 .filter(entity -> entity.getCollectionCaseId().equals(collectionCaseId))
                 .flatMap(repository::delete);
