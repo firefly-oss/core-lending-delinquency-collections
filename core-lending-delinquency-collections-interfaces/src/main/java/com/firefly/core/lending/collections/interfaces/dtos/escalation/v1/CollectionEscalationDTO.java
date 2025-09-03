@@ -9,7 +9,9 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import jakarta.validation.constraints.*;
 import java.time.LocalDateTime;
+import java.util.UUID;
 
 @Data
 @Builder
@@ -17,15 +19,25 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 public class CollectionEscalationDTO {
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
-    private Long collectionEscalationId;
+    private UUID collectionEscalationId;
 
     @FilterableId
-    private Long collectionCaseId;
+    @NotNull(message = "Collection case ID is required")
+    private UUID collectionCaseId;
 
+    @NotNull(message = "Escalation level is required")
     private EscalationLevelEnum escalationLevel;
+
+    @NotNull(message = "Escalation reason is required")
     private EscalationReasonEnum escalationReason;
+
+    @NotNull(message = "Escalation date is required")
+    @PastOrPresent(message = "Escalation date cannot be in the future")
     private LocalDateTime escalationDate;
+
+    @Size(max = 2000, message = "Notes cannot exceed 2000 characters")
     private String notes;
+
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
 }

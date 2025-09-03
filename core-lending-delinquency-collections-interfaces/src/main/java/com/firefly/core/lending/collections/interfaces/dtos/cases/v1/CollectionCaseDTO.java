@@ -9,8 +9,10 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import jakarta.validation.constraints.*;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.UUID;
 
 @Data
 @Builder
@@ -18,19 +20,41 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 public class CollectionCaseDTO {
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
-    private Long collectionCaseId;
+    private UUID collectionCaseId;
 
     @FilterableId
-    private Long loanServicingCaseId;
+    @NotNull(message = "Loan servicing case ID is required")
+    private UUID loanServicingCaseId;
 
+    @NotNull(message = "Collection status is required")
     private CollectionStatusEnum collectionStatus;
+
+    @NotNull(message = "Days past due is required")
+    @Min(value = 0, message = "Days past due must be non-negative")
     private Integer daysPastDue;
+
+    @NotNull(message = "Delinquency stage is required")
     private DelinquencyStageEnum delinquencyStage;
+
+    @NotNull(message = "Total due amount is required")
+    @DecimalMin(value = "0.0", inclusive = false, message = "Total due must be greater than zero")
+    @Digits(integer = 15, fraction = 2, message = "Total due must have at most 15 integer digits and 2 decimal places")
     private BigDecimal totalDue;
+
+    @DecimalMin(value = "0.0", message = "Total recovered must be non-negative")
+    @Digits(integer = 15, fraction = 2, message = "Total recovered must have at most 15 integer digits and 2 decimal places")
     private BigDecimal totalRecovered;
+
+    @NotNull(message = "Case opened date is required")
+    @PastOrPresent(message = "Case opened date cannot be in the future")
     private LocalDateTime caseOpenedAt;
+
+    @PastOrPresent(message = "Case closed date cannot be in the future")
     private LocalDateTime caseClosedAt;
+
+    @Size(max = 1000, message = "Remarks cannot exceed 1000 characters")
     private String remarks;
+
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
 }
