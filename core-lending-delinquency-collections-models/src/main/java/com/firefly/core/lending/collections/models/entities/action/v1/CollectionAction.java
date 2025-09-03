@@ -11,6 +11,7 @@ import org.springframework.data.relational.core.mapping.Column;
 import org.springframework.data.relational.core.mapping.Table;
 
 import java.time.LocalDateTime;
+import java.util.UUID;
 
 @Data
 @Builder
@@ -21,10 +22,10 @@ public class CollectionAction {
 
     @Id
     @Column("collection_action_id")
-    private Long collectionActionId;
+    private UUID collectionActionId;
 
     @Column("collection_case_id")
-    private Long collectionCaseId;
+    private UUID collectionCaseId;
 
     @Column("action_type")
     private ActionTypeEnum actionType;

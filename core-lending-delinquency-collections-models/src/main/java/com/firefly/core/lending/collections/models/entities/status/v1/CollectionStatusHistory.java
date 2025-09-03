@@ -11,6 +11,7 @@ import org.springframework.data.relational.core.mapping.Column;
 import org.springframework.data.relational.core.mapping.Table;
 
 import java.time.LocalDateTime;
+import java.util.UUID;
 
 @Data
 @Builder
@@ -21,10 +22,10 @@ public class CollectionStatusHistory {
 
     @Id
     @Column("collection_status_history_id")
-    private Long collectionStatusHistoryId;
+    private UUID collectionStatusHistoryId;
 
     @Column("collection_case_id")
-    private Long collectionCaseId;
+    private UUID collectionCaseId;
 
     @Column("old_status")
     private CollectionStatusEnum oldStatus;

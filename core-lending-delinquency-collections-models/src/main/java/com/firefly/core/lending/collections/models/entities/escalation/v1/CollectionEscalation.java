@@ -11,6 +11,7 @@ import org.springframework.data.relational.core.mapping.Column;
 import org.springframework.data.relational.core.mapping.Table;
 
 import java.time.LocalDateTime;
+import java.util.UUID;
 
 @Data
 @Builder
@@ -21,10 +22,10 @@ public class CollectionEscalation {
 
     @Id
     @Column("collection_escalation_id")
-    private Long collectionEscalationId;
+    private UUID collectionEscalationId;
 
     @Column("collection_case_id")
-    private Long collectionCaseId;
+    private UUID collectionCaseId;
 
     @Column("escalation_level")
     private EscalationLevelEnum escalationLevel;
