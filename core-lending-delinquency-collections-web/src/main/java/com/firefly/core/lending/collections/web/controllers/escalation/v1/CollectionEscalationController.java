@@ -11,6 +11,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Mono;
 
+import jakarta.validation.Valid;
+import java.util.UUID;
+
 @RestController
 @RequestMapping("/api/v1/collection-cases/{collectionCaseId}/escalations")
 @Tag(name = "CollectionEscalation", description = "Operations on Escalations in Collection Cases")
@@ -22,7 +25,7 @@ public class CollectionEscalationController {
     @GetMapping
     @Operation(summary = "List or search escalations for a collection case")
     public Mono<ResponseEntity<PaginationResponse<CollectionEscalationDTO>>> findAll(
-            @PathVariable Long collectionCaseId,
+            @PathVariable UUID collectionCaseId,
             @ModelAttribute FilterRequest<CollectionEscalationDTO> filterRequest) {
 
         return service.findAll(collectionCaseId, filterRequest)
@@ -32,8 +35,8 @@ public class CollectionEscalationController {
     @PostMapping
     @Operation(summary = "Create a new escalation")
     public Mono<ResponseEntity<CollectionEscalationDTO>> create(
-            @PathVariable Long collectionCaseId,
-            @RequestBody CollectionEscalationDTO dto) {
+            @PathVariable UUID collectionCaseId,
+            @Valid @RequestBody CollectionEscalationDTO dto) {
 
         return service.create(collectionCaseId, dto)
                 .map(ResponseEntity::ok);
@@ -42,8 +45,8 @@ public class CollectionEscalationController {
     @GetMapping("/{escalationId}")
     @Operation(summary = "Get an escalation record by ID")
     public Mono<ResponseEntity<CollectionEscalationDTO>> getById(
-            @PathVariable Long collectionCaseId,
-            @PathVariable Long escalationId) {
+            @PathVariable UUID collectionCaseId,
+            @PathVariable UUID escalationId) {
 
         return service.getById(collectionCaseId, escalationId)
                 .map(ResponseEntity::ok);
@@ -52,9 +55,9 @@ public class CollectionEscalationController {
     @PutMapping("/{escalationId}")
     @Operation(summary = "Update an escalation record")
     public Mono<ResponseEntity<CollectionEscalationDTO>> update(
-            @PathVariable Long collectionCaseId,
-            @PathVariable Long escalationId,
-            @RequestBody CollectionEscalationDTO dto) {
+            @PathVariable UUID collectionCaseId,
+            @PathVariable UUID escalationId,
+            @Valid @RequestBody CollectionEscalationDTO dto) {
 
         return service.update(collectionCaseId, escalationId, dto)
                 .map(ResponseEntity::ok);
@@ -63,8 +66,8 @@ public class CollectionEscalationController {
     @DeleteMapping("/{escalationId}")
     @Operation(summary = "Delete an escalation record")
     public Mono<ResponseEntity<Void>> delete(
-            @PathVariable Long collectionCaseId,
-            @PathVariable Long escalationId) {
+            @PathVariable UUID collectionCaseId,
+            @PathVariable UUID escalationId) {
 
         return service.delete(collectionCaseId, escalationId)
                 .thenReturn(ResponseEntity.noContent().build());

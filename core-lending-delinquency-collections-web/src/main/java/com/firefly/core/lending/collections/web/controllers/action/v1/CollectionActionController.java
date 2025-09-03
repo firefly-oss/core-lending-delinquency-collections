@@ -11,6 +11,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Mono;
 
+import jakarta.validation.Valid;
+import java.util.UUID;
+
 @RestController
 @RequestMapping("/api/v1/collection-cases/{collectionCaseId}/actions")
 @Tag(name = "CollectionAction", description = "Operations on Collection Actions")
@@ -22,7 +25,7 @@ public class CollectionActionController {
     @GetMapping
     @Operation(summary = "List or search actions for a collection case")
     public Mono<ResponseEntity<PaginationResponse<CollectionActionDTO>>> findAll(
-            @PathVariable Long collectionCaseId,
+            @PathVariable UUID collectionCaseId,
             @ModelAttribute FilterRequest<CollectionActionDTO> filterRequest) {
 
         return service.findAll(collectionCaseId, filterRequest)
@@ -32,8 +35,8 @@ public class CollectionActionController {
     @PostMapping
     @Operation(summary = "Create a new action on a collection case")
     public Mono<ResponseEntity<CollectionActionDTO>> create(
-            @PathVariable Long collectionCaseId,
-            @RequestBody CollectionActionDTO dto) {
+            @PathVariable UUID collectionCaseId,
+            @Valid @RequestBody CollectionActionDTO dto) {
 
         return service.create(collectionCaseId, dto)
                 .map(ResponseEntity::ok);
@@ -42,8 +45,8 @@ public class CollectionActionController {
     @GetMapping("/{actionId}")
     @Operation(summary = "Get a collection action by ID")
     public Mono<ResponseEntity<CollectionActionDTO>> getById(
-            @PathVariable Long collectionCaseId,
-            @PathVariable Long actionId) {
+            @PathVariable UUID collectionCaseId,
+            @PathVariable UUID actionId) {
 
         return service.getById(collectionCaseId, actionId)
                 .map(ResponseEntity::ok);
@@ -52,9 +55,9 @@ public class CollectionActionController {
     @PutMapping("/{actionId}")
     @Operation(summary = "Update a collection action")
     public Mono<ResponseEntity<CollectionActionDTO>> update(
-            @PathVariable Long collectionCaseId,
-            @PathVariable Long actionId,
-            @RequestBody CollectionActionDTO dto) {
+            @PathVariable UUID collectionCaseId,
+            @PathVariable UUID actionId,
+            @Valid @RequestBody CollectionActionDTO dto) {
 
         return service.update(collectionCaseId, actionId, dto)
                 .map(ResponseEntity::ok);
@@ -63,8 +66,8 @@ public class CollectionActionController {
     @DeleteMapping("/{actionId}")
     @Operation(summary = "Delete a collection action")
     public Mono<ResponseEntity<Void>> delete(
-            @PathVariable Long collectionCaseId,
-            @PathVariable Long actionId) {
+            @PathVariable UUID collectionCaseId,
+            @PathVariable UUID actionId) {
 
         return service.delete(collectionCaseId, actionId)
                 .thenReturn(ResponseEntity.noContent().build());

@@ -11,6 +11,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Mono;
 
+import jakarta.validation.Valid;
+import java.util.UUID;
+
 @RestController
 @RequestMapping("/api/v1/collection-cases/{collectionCaseId}/promises")
 @Tag(name = "CollectionPromise", description = "Operations on Payment Promises in Collection Cases")
@@ -22,7 +25,7 @@ public class CollectionPromiseController {
     @GetMapping
     @Operation(summary = "List or search promises for a collection case")
     public Mono<ResponseEntity<PaginationResponse<CollectionPromiseDTO>>> findAll(
-            @PathVariable Long collectionCaseId,
+            @PathVariable UUID collectionCaseId,
             @ModelAttribute FilterRequest<CollectionPromiseDTO> filterRequest) {
 
         return service.findAll(collectionCaseId, filterRequest)
@@ -32,8 +35,8 @@ public class CollectionPromiseController {
     @PostMapping
     @Operation(summary = "Create a new payment promise")
     public Mono<ResponseEntity<CollectionPromiseDTO>> create(
-            @PathVariable Long collectionCaseId,
-            @RequestBody CollectionPromiseDTO dto) {
+            @PathVariable UUID collectionCaseId,
+            @Valid @RequestBody CollectionPromiseDTO dto) {
 
         return service.create(collectionCaseId, dto)
                 .map(ResponseEntity::ok);
@@ -42,8 +45,8 @@ public class CollectionPromiseController {
     @GetMapping("/{promiseId}")
     @Operation(summary = "Get a payment promise by ID")
     public Mono<ResponseEntity<CollectionPromiseDTO>> getById(
-            @PathVariable Long collectionCaseId,
-            @PathVariable Long promiseId) {
+            @PathVariable UUID collectionCaseId,
+            @PathVariable UUID promiseId) {
 
         return service.getById(collectionCaseId, promiseId)
                 .map(ResponseEntity::ok);
@@ -52,9 +55,9 @@ public class CollectionPromiseController {
     @PutMapping("/{promiseId}")
     @Operation(summary = "Update a payment promise")
     public Mono<ResponseEntity<CollectionPromiseDTO>> update(
-            @PathVariable Long collectionCaseId,
-            @PathVariable Long promiseId,
-            @RequestBody CollectionPromiseDTO dto) {
+            @PathVariable UUID collectionCaseId,
+            @PathVariable UUID promiseId,
+            @Valid @RequestBody CollectionPromiseDTO dto) {
 
         return service.update(collectionCaseId, promiseId, dto)
                 .map(ResponseEntity::ok);
@@ -63,8 +66,8 @@ public class CollectionPromiseController {
     @DeleteMapping("/{promiseId}")
     @Operation(summary = "Delete a payment promise record")
     public Mono<ResponseEntity<Void>> delete(
-            @PathVariable Long collectionCaseId,
-            @PathVariable Long promiseId) {
+            @PathVariable UUID collectionCaseId,
+            @PathVariable UUID promiseId) {
 
         return service.delete(collectionCaseId, promiseId)
                 .thenReturn(ResponseEntity.noContent().build());

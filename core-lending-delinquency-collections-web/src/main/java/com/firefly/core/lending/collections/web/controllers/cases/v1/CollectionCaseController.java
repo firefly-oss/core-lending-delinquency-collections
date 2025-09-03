@@ -11,6 +11,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Mono;
 
+import jakarta.validation.Valid;
+import java.util.UUID;
+
 @RestController
 @RequestMapping("/api/v1/collection-cases")
 @Tag(name = "CollectionCase", description = "Operations on Collection Cases")
@@ -30,14 +33,14 @@ public class CollectionCaseController {
 
     @PostMapping
     @Operation(summary = "Create a new collection case")
-    public Mono<ResponseEntity<CollectionCaseDTO>> create(@RequestBody CollectionCaseDTO dto) {
+    public Mono<ResponseEntity<CollectionCaseDTO>> create(@Valid @RequestBody CollectionCaseDTO dto) {
         return service.create(dto)
                 .map(ResponseEntity::ok);
     }
 
     @GetMapping("/{collectionCaseId}")
     @Operation(summary = "Get a collection case by ID")
-    public Mono<ResponseEntity<CollectionCaseDTO>> getById(@PathVariable Long collectionCaseId) {
+    public Mono<ResponseEntity<CollectionCaseDTO>> getById(@PathVariable UUID collectionCaseId) {
         return service.getById(collectionCaseId)
                 .map(ResponseEntity::ok);
     }
@@ -45,8 +48,8 @@ public class CollectionCaseController {
     @PutMapping("/{collectionCaseId}")
     @Operation(summary = "Update a collection case")
     public Mono<ResponseEntity<CollectionCaseDTO>> update(
-            @PathVariable Long collectionCaseId,
-            @RequestBody CollectionCaseDTO dto) {
+            @PathVariable UUID collectionCaseId,
+            @Valid @RequestBody CollectionCaseDTO dto) {
 
         return service.update(collectionCaseId, dto)
                 .map(ResponseEntity::ok);
@@ -54,7 +57,7 @@ public class CollectionCaseController {
 
     @DeleteMapping("/{collectionCaseId}")
     @Operation(summary = "Delete a collection case")
-    public Mono<ResponseEntity<Void>> delete(@PathVariable Long collectionCaseId) {
+    public Mono<ResponseEntity<Void>> delete(@PathVariable UUID collectionCaseId) {
         return service.delete(collectionCaseId)
                 .thenReturn(ResponseEntity.noContent().build());
     }

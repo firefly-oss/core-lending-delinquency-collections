@@ -11,6 +11,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Mono;
 
+import jakarta.validation.Valid;
+import java.util.UUID;
+
 @RestController
 @RequestMapping("/api/v1/collection-cases/{collectionCaseId}/status-history")
 @Tag(name = "CollectionStatusHistory", description = "Operations on Collection Status History")
@@ -22,7 +25,7 @@ public class CollectionStatusHistoryController {
     @GetMapping
     @Operation(summary = "List or search status history records for a collection case")
     public Mono<ResponseEntity<PaginationResponse<CollectionStatusHistoryDTO>>> findAll(
-            @PathVariable Long collectionCaseId,
+            @PathVariable UUID collectionCaseId,
             @ModelAttribute FilterRequest<CollectionStatusHistoryDTO> filterRequest) {
 
         return service.findAll(collectionCaseId, filterRequest)
@@ -32,8 +35,8 @@ public class CollectionStatusHistoryController {
     @PostMapping
     @Operation(summary = "Create a new status history entry for a case")
     public Mono<ResponseEntity<CollectionStatusHistoryDTO>> create(
-            @PathVariable Long collectionCaseId,
-            @RequestBody CollectionStatusHistoryDTO dto) {
+            @PathVariable UUID collectionCaseId,
+            @Valid @RequestBody CollectionStatusHistoryDTO dto) {
 
         return service.create(collectionCaseId, dto)
                 .map(ResponseEntity::ok);
@@ -42,8 +45,8 @@ public class CollectionStatusHistoryController {
     @GetMapping("/{statusHistoryId}")
     @Operation(summary = "Get a status history record by ID")
     public Mono<ResponseEntity<CollectionStatusHistoryDTO>> getById(
-            @PathVariable Long collectionCaseId,
-            @PathVariable Long statusHistoryId) {
+            @PathVariable UUID collectionCaseId,
+            @PathVariable UUID statusHistoryId) {
 
         return service.getById(collectionCaseId, statusHistoryId)
                 .map(ResponseEntity::ok);
@@ -52,9 +55,9 @@ public class CollectionStatusHistoryController {
     @PutMapping("/{statusHistoryId}")
     @Operation(summary = "Update a status history record")
     public Mono<ResponseEntity<CollectionStatusHistoryDTO>> update(
-            @PathVariable Long collectionCaseId,
-            @PathVariable Long statusHistoryId,
-            @RequestBody CollectionStatusHistoryDTO dto) {
+            @PathVariable UUID collectionCaseId,
+            @PathVariable UUID statusHistoryId,
+            @Valid @RequestBody CollectionStatusHistoryDTO dto) {
 
         return service.update(collectionCaseId, statusHistoryId, dto)
                 .map(ResponseEntity::ok);
@@ -63,8 +66,8 @@ public class CollectionStatusHistoryController {
     @DeleteMapping("/{statusHistoryId}")
     @Operation(summary = "Delete a status history record")
     public Mono<ResponseEntity<Void>> delete(
-            @PathVariable Long collectionCaseId,
-            @PathVariable Long statusHistoryId) {
+            @PathVariable UUID collectionCaseId,
+            @PathVariable UUID statusHistoryId) {
 
         return service.delete(collectionCaseId, statusHistoryId)
                 .thenReturn(ResponseEntity.noContent().build());
