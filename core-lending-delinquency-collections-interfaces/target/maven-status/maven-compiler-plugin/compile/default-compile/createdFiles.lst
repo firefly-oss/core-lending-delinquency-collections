@@ -1,0 +1,17 @@
+com/firefly/core/lending/collections/interfaces/dtos/promise/v1/CollectionPromiseDTO.class
+com/firefly/core/lending/collections/interfaces/enums/escalation/v1/EscalationReasonEnum.class
+com/firefly/core/lending/collections/interfaces/enums/status/v1/StatusReasonCodeEnum.class
+com/firefly/core/lending/collections/interfaces/dtos/cases/v1/CollectionCaseDTO$CollectionCaseDTOBuilder.class
+com/firefly/core/lending/collections/interfaces/dtos/action/v1/CollectionActionDTO$CollectionActionDTOBuilder.class
+com/firefly/core/lending/collections/interfaces/dtos/escalation/v1/CollectionEscalationDTO$CollectionEscalationDTOBuilder.class
+com/firefly/core/lending/collections/interfaces/enums/escalation/v1/EscalationLevelEnum.class
+com/firefly/core/lending/collections/interfaces/dtos/status/v1/CollectionStatusHistoryDTO.class
+com/firefly/core/lending/collections/interfaces/enums/status/v1/CollectionStatusEnum.class
+com/firefly/core/lending/collections/interfaces/dtos/escalation/v1/CollectionEscalationDTO.class
+com/firefly/core/lending/collections/interfaces/dtos/cases/v1/CollectionCaseDTO.class
+com/firefly/core/lending/collections/interfaces/dtos/action/v1/CollectionActionDTO.class
+com/firefly/core/lending/collections/interfaces/enums/action/v1/OutcomeTypeEnum.class
+com/firefly/core/lending/collections/interfaces/enums/action/v1/ActionTypeEnum.class
+com/firefly/core/lending/collections/interfaces/dtos/status/v1/CollectionStatusHistoryDTO$CollectionStatusHistoryDTOBuilder.class
+com/firefly/core/lending/collections/interfaces/dtos/promise/v1/CollectionPromiseDTO$CollectionPromiseDTOBuilder.class
+com/firefly/core/lending/collections/interfaces/enums/cases/v1/DelinquencyStageEnum.class
