@@ -1,7 +1,7 @@
 # Core Lending Delinquency & Collections Service
 
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
-[![Java](https://img.shields.io/badge/Java-21-orange.svg)](https://openjdk.java.net/projects/jdk/21/)
+[![Java](https://img.shields.io/badge/Java-25-orange.svg)](https://openjdk.java.net/projects/jdk/25/)
 [![Spring Boot](https://img.shields.io/badge/Spring%20Boot-3.x-green.svg)](https://spring.io/projects/spring-boot)
 
 ## Overview
@@ -66,7 +66,7 @@ This service follows a clean architecture pattern with the following Maven modul
 
 | Component | Technology | Version |
 |-----------|------------|---------|
-| **Language** | Java | 21 (with Virtual Threads) |
+| **Language** | Java | 25 (with Virtual Threads) |
 | **Framework** | Spring Boot | 3.x |
 | **Web Layer** | Spring WebFlux | Reactive |
 | **Data Access** | Spring Data R2DBC | Reactive |
@@ -206,7 +206,7 @@ erDiagram
 
 ### Prerequisites
 
-- **Java 21+** - Required for virtual threads support
+- **Java 25+** - Required for virtual threads support
 - **Maven 3.8+** - Build tool
 - **PostgreSQL 14+** - Database server
 - **Docker** (optional) - For containerized deployment
@@ -303,14 +303,17 @@ DELETE /api/v1/collection-cases/{caseId}           # Delete case
 GET    /api/v1/collection-cases/{caseId}/actions           # List case actions
 POST   /api/v1/collection-cases/{caseId}/actions           # Create action
 GET    /api/v1/collection-cases/{caseId}/actions/{actionId} # Get action details
+PUT    /api/v1/collection-cases/{caseId}/actions/{actionId} # Update action
+DELETE /api/v1/collection-cases/{caseId}/actions/{actionId} # Delete action
 ```
 
 #### Collection Promises
 ```http
 GET    /api/v1/collection-cases/{caseId}/promises           # List case promises
 POST   /api/v1/collection-cases/{caseId}/promises           # Create promise
-PUT    /api/v1/collection-cases/{caseId}/promises/{promiseId} # Update promise
 GET    /api/v1/collection-cases/{caseId}/promises/{promiseId} # Get promise details
+PUT    /api/v1/collection-cases/{caseId}/promises/{promiseId} # Update promise
+DELETE /api/v1/collection-cases/{caseId}/promises/{promiseId} # Delete promise
 ```
 
 #### Collection Escalations
@@ -318,6 +321,8 @@ GET    /api/v1/collection-cases/{caseId}/promises/{promiseId} # Get promise deta
 GET    /api/v1/collection-cases/{caseId}/escalations           # List case escalations
 POST   /api/v1/collection-cases/{caseId}/escalations           # Create escalation
 GET    /api/v1/collection-cases/{caseId}/escalations/{escalationId} # Get escalation details
+PUT    /api/v1/collection-cases/{caseId}/escalations/{escalationId} # Update escalation
+DELETE /api/v1/collection-cases/{caseId}/escalations/{escalationId} # Delete escalation
 ```
 
 #### Status History
@@ -325,6 +330,8 @@ GET    /api/v1/collection-cases/{caseId}/escalations/{escalationId} # Get escala
 GET    /api/v1/collection-cases/{caseId}/status-history       # List status changes
 POST   /api/v1/collection-cases/{caseId}/status-history       # Record status change
 GET    /api/v1/collection-cases/{caseId}/status-history/{historyId} # Get status change details
+PUT    /api/v1/collection-cases/{caseId}/status-history/{historyId} # Update status change
+DELETE /api/v1/collection-cases/{caseId}/status-history/{historyId} # Delete status change
 ```
 
 ### Request/Response Examples
@@ -521,7 +528,7 @@ This project is licensed under the Apache License 2.0 - see the [LICENSE](LICENS
 
 ## Acknowledgments
 
-Built with ❤️ by the Firefly Software Solutions Inc team and the open-source community.
+Built with by the Firefly Software Solutions Inc team and the open-source community.
 
 ---
 
