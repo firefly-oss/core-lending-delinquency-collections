@@ -17,8 +17,8 @@
 
 package com.firefly.core.lending.collections.web.controllers.promise.v1;
 
-import com.firefly.common.core.filters.FilterRequest;
-import com.firefly.common.core.queries.PaginationResponse;
+import org.fireflyframework.core.filters.FilterRequest;
+import org.fireflyframework.core.queries.PaginationResponse;
 import com.firefly.core.lending.collections.core.services.promise.v1.CollectionPromiseService;
 import com.firefly.core.lending.collections.interfaces.dtos.promise.v1.CollectionPromiseDTO;
 import io.swagger.v3.oas.annotations.Operation;

@@ -17,9 +17,9 @@
 
 package com.firefly.core.lending.collections.core.services.action.v1;
 
-import com.firefly.common.core.filters.FilterRequest;
-import com.firefly.common.core.filters.FilterUtils;
-import com.firefly.common.core.queries.PaginationResponse;
+import org.fireflyframework.core.filters.FilterRequest;
+import org.fireflyframework.core.filters.FilterUtils;
+import org.fireflyframework.core.queries.PaginationResponse;
 import com.firefly.core.lending.collections.core.mappers.action.v1.CollectionActionMapper;
 import com.firefly.core.lending.collections.interfaces.dtos.action.v1.CollectionActionDTO;
 import com.firefly.core.lending.collections.models.entities.action.v1.CollectionAction;

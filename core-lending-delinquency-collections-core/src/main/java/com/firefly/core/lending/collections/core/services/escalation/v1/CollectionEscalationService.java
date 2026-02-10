@@ -17,8 +17,8 @@
 
 package com.firefly.core.lending.collections.core.services.escalation.v1;
 
-import com.firefly.common.core.filters.FilterRequest;
-import com.firefly.common.core.queries.PaginationResponse;
+import org.fireflyframework.core.filters.FilterRequest;
+import org.fireflyframework.core.queries.PaginationResponse;
 import com.firefly.core.lending.collections.interfaces.dtos.escalation.v1.CollectionEscalationDTO;
 import reactor.core.publisher.Mono;
 

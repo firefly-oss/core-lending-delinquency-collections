@@ -19,7 +19,7 @@ package com.firefly.core.lending.collections.interfaces.dtos.action.v1;
 
 import com.firefly.core.lending.collections.interfaces.enums.action.v1.ActionTypeEnum;
 import com.firefly.core.lending.collections.interfaces.enums.action.v1.OutcomeTypeEnum;
-import com.firefly.core.utils.annotations.FilterableId;
+import org.fireflyframework.utils.annotations.FilterableId;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
