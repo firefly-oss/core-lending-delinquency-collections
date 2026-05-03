@@ -6,7 +6,7 @@
 
 ## Overview
 
-The **Core Lending Delinquency & Collections Service** is a critical microservice component of the **Firefly OpenCore Banking Platform**, developed by [Firefly Software Solutions Inc](https://getfirefly.io) under the Apache 2.0 license. This service provides comprehensive loan delinquency management and collections processing capabilities for financial institutions.
+The **Core Lending Delinquency & Collections Service** is a critical microservice component of the **Firefly OpenCore Banking Platform**, developed by [Firefly Software Foundation](https://getfirefly.io) under the Apache 2.0 license. This service provides comprehensive loan delinquency management and collections processing capabilities for financial institutions.
 
 ### Key Features
 
@@ -528,7 +528,7 @@ This project is licensed under the Apache License 2.0 - see the [LICENSE](LICENS
 
 ## Acknowledgments
 
-Built with by the Firefly Software Solutions Inc team and the open-source community.
+Built with by the Firefly Software Foundation team and the open-source community.
 
 ---
 
