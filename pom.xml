@@ -12,6 +12,7 @@
     </parent>
 
     <artifactId>core-lending-delinquency-collections</artifactId>
+    <name>core-lending-delinquency-collections</name>
     <packaging>pom</packaging>
     <modules>
         <module>core-lending-delinquency-collections-core</module>

@@ -10,6 +10,7 @@
     </parent>
 
     <artifactId>core-lending-delinquency-collections-core</artifactId>
+    <name>core-lending-delinquency-collections-core</name>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
