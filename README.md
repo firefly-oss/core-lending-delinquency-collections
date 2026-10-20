@@ -402,21 +402,21 @@ The API uses standard HTTP status codes and returns detailed error information:
 ```
 core-lending-delinquency-collections/
 ├── core-lending-delinquency-collections-interfaces/
-│   └── src/main/java/com/firefly/core/lending/collections/interfaces/
+│   └── src/main/java/io/fireflysoftware/core/lending/collections/interfaces/
 │       ├── dtos/           # Data Transfer Objects
 │       ├── enums/          # Business enumerations
 │       └── services/       # Service interfaces
 ├── core-lending-delinquency-collections-models/
-│   └── src/main/java/com/firefly/core/lending/collections/models/
+│   └── src/main/java/io/fireflysoftware/core/lending/collections/models/
 │       ├── entities/       # JPA entities
 │       ├── repositories/   # Repository interfaces
 │       └── resources/db/migration/  # Flyway migrations
 ├── core-lending-delinquency-collections-core/
-│   └── src/main/java/com/firefly/core/lending/collections/core/
+│   └── src/main/java/io/fireflysoftware/core/lending/collections/core/
 │       ├── services/       # Service implementations
 │       └── mappers/        # Entity-DTO mappers
 ├── core-lending-delinquency-collections-web/
-│   └── src/main/java/com/firefly/core/lending/collections/web/
+│   └── src/main/java/io/fireflysoftware/core/lending/collections/web/
 │       ├── controllers/    # REST controllers
 │       └── config/         # Web configuration
 └── core-lending-delinquency-collections-sdk/
@@ -425,7 +425,7 @@ core-lending-delinquency-collections/
 
 ### Coding Standards
 
-- **Package Naming**: Follow the pattern `com.firefly.core.lending.collections.{module}.{feature}.{version}`
+- **Package Naming**: Follow the pattern `io.fireflysoftware.core.lending.collections.{module}.{feature}.{version}`
 - **Versioning**: Use `v1`, `v2` packages for API versioning
 - **Reactive Programming**: Use `Mono<T>` for single values, `Flux<T>` for streams
 - **Validation**: Use Jakarta Validation annotations on DTOs
@@ -499,7 +499,7 @@ Structured logging with correlation IDs for request tracing:
 {
   "timestamp": "2024-01-16T10:30:00.123Z",
   "level": "INFO",
-  "logger": "com.firefly.core.lending.collections.core.services.cases.v1.CollectionCaseServiceImpl",
+  "logger": "io.fireflysoftware.core.lending.collections.core.services.cases.v1.CollectionCaseServiceImpl",
   "message": "Collection case created successfully",
   "correlationId": "abc123-def456",
   "caseId": "123e4567-e89b-12d3-a456-426614174000"
