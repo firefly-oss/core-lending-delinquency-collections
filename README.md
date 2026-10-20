@@ -6,7 +6,7 @@
 
 ## Overview
 
-The **Core Lending Delinquency & Collections Service** is a critical microservice component of the **Firefly OpenCore Banking Platform**, developed by [Firefly Software Foundation](https://getfirefly.io) under the Apache 2.0 license. This service provides comprehensive loan delinquency management and collections processing capabilities for financial institutions.
+The **Core Lending Delinquency & Collections Service** is a critical microservice component of the **Firefly OpenCore Banking Platform**, developed by [Firefly Software Foundation](https://fireflysoftware.io) under the Apache 2.0 license. This service provides comprehensive loan delinquency management and collections processing capabilities for financial institutions.
 
 ### Key Features
 
@@ -278,7 +278,7 @@ docker run -p 8080:8080 \
 
 ### Base URL
 - **Development**: `http://localhost:8080`
-- **Production**: `https://api.getfirefly.io/loan-collections`
+- **Production**: `https://api.fireflysoftware.io/loan-collections`
 
 ### Authentication
 This service integrates with the Firefly platform's authentication system. Include the JWT token in the Authorization header:
@@ -520,9 +520,9 @@ This project is licensed under the Apache License 2.0 - see the [LICENSE](LICENS
 
 ## Support & Community
 
-- **Website**: [getfirefly.io](https://getfirefly.io)
+- **Website**: [fireflysoftware.io](https://fireflysoftware.io)
 - **GitHub Organization**: [firefly-oss](https://github.com/firefly-oss)
-- **Documentation**: [docs.getfirefly.io](https://docs.getfirefly.io)
+- **Documentation**: [docs.fireflysoftware.io](https://docs.fireflysoftware.io)
 - **Issues**: [GitHub Issues](https://github.com/firefly-oss/core-lending-delinquency-collections/issues)
 - **Discussions**: [GitHub Discussions](https://github.com/firefly-oss/core-lending-delinquency-collections/discussions)
 
